@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: {{ .Values.Project }}-me
+spec:
+  template:
+    metadata:
+      name: {{ .Values.Project }}-me
+      labels:
+        name: {{ .Values.Project }}-me
+    spec:
+      volumes:
+        - name: me-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.Project }}-me-pvc
+      containers:
+      - name: motioneye
+        image: ccrisan/motioneye:master-armhf
+        volumeMounts:
+        - name: me-data
+          mountPath: "/etc/motioneye"
+          subPath: "{{ .Values.Project }}/etc/"
+        - name: me-data
+          mountPath: "/var/lib/motioneye"
+          subPath: "{{ .Values.Project }}/data/"
+        imagePullPolicy: IfNotPresent
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Values.Project }}-me
+

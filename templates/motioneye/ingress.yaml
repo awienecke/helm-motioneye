@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.Project }}-me-ingress
+  annotations:
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+    cert-manager.io/cluster-issuer: letsencrypt-prod-ng
+spec:
+  rules:
+  - host: {{ .Values.Domain }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.Project }}-me-service
+            port:
+              number: 8765
+#  tls:
+#  - hosts: 
+#    - {{ .Values.Domain }}
+#    secretName: {{ .Values.Domain }}-tls

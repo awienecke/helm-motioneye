@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.Project }}-me-pvc
+spec:
+{{- if eq .Values.storageclass "localstorage" }}
+  storageClassName: ""
+  volumeName: {{ .Values.Project }}-pv
+{{- else if eq .Values.storageclass "nfs" }}
+  storageClassName: ""
+  volumeName: nfs-{{ .Values.Project }}
+{{- end }}
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.PVSize }}
+

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.Project }}-me-service
+spec:
+  selector:
+    name: {{ .Values.Project }}-me
+  ports: 
+  - name: web
+    protocol: TCP
+    port: 8765
+    targetPort: 8765
+

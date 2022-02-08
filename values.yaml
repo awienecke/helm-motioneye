@@ -1,0 +1,17 @@
+# define a project name, this gets appended as a unique identifier for components
+Project: cam
+Domain: "cam.500magnolia.com"
+# Uncomment and add if you have additional ingress domains you want to add, only 1 is supported at this time
+#AddDomain: testnews.news
+# If using local storage, this defines where on the node to store the data
+PVDirectory: /drive/k3s/
+# This defines the storage size of the pv/pvc sinstall
+PVSize: 500Gi
+tls: "true"
+# Set storageclass localstorage or nfs
+storageclass: localstorage
+#Later Implementation
+#certmanager: "true"
+
+  
+
